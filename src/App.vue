@@ -6,6 +6,7 @@
         rowNum: null,
         startVisibility: true,
         makeFieldVisibility: false,
+        fieldSizeError: "",
       }
     },
 
@@ -13,6 +14,17 @@
       changeField() {
         this.startVisibility = false;
         this.makeFieldVisibility = true;
+      },
+
+      getFieldSize() {
+        if ((Number(this.rowNum) == 0) || (Number(this.columnNum) == 0) || (Number.isInteger(Number(this.rowNum)) == false) || (Number.isInteger(Number(this.columnNum)) == false)) {
+          this.fieldSizeError = "Ошибка! Введено неверное число."
+          return false;
+        }
+        
+        this.fieldSizeError = "";
+        this.makeFieldVisibility = false;
+
       }
       
     }
@@ -28,10 +40,12 @@
         <button class="start" @click="changeField()">Начать работу</button>
       </div>
       <div class="makeField" v-if="makeFieldVisibility">
-        <p>Введите размеры поля</p>
-        <input class="" type="text" value="Строки">
+        <p>Введите размеры поля:</p>
+        <input class="fieldSize" type="text" placeholder="строки" v-model="rowNum">
         <span>x</span>
-        <input type="text" value="Столбцы">
+        <input class="fieldSize" type="text" placeholder="столбцы" v-model="columnNum"> <br>
+        <p class="err">{{ fieldSizeError }}</p>
+        <button class="create" @click="getFieldSize()">Создать поле</button>
       </div>
     </div>
   </div>
@@ -69,8 +83,6 @@
     align-items: center;
   }
 
-  
-
   .main_header {
     font-size: 7vh;
     text-align: center;
@@ -92,7 +104,8 @@
     
   }
 
-  p {
+
+  .img_box p {
     font-size: 2vw;
     text-align: right;
     margin-top: 10%;
@@ -115,4 +128,57 @@
     background-color: #c7b598;
     border: 3px solid #c7b598;
   }
+
+  .makeField {
+    width: 50%;
+    height: 40%;
+    border-radius: 5px;
+    text-align: center;
+    color: #2b281d;
+    font-size: 4vh;
+  }
+
+  .makeField p {
+    margin-bottom: 5%;
+  }
+
+  .makeField span {
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+
+  .fieldSize {
+    font-size: 3vh;
+    width: 25%;
+    height: 20%;
+    border-radius: 5px;
+    border-color: #2b281d;
+    background-color: #c7b598;
+    font-family: Georgia, serif;
+    text-align: center;
+  }
+
+  .create {
+    background-color: transparent;
+    font-size: 3vh;
+    width: 40%;
+    height: 20%;
+    outline: #c7b598 solid 5px;
+    border-radius: 5px;
+    margin-bottom: 20%;
+    font-family: Georgia, serif;
+    color: #2b281d;
+  }
+
+  .create:hover {
+    background-color: #c7b598;
+  }
+
+  .err {
+    font-size: 3vh;
+    margin-top: 5%;
+  }
+
+
+
 </style>
