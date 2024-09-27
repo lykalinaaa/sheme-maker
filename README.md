@@ -1,2 +1,2 @@
 # sheme-maker
-Service for creating schemes for weaving and cross stitch.
+Service for creating schemes for weaving and cross stitching.
